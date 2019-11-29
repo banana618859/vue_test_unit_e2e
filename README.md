@@ -21,15 +21,17 @@ npm run build --report
 npm run unit
 
 # look
+```
 !['unit'](https://github.com/banana618859/vue_test_unit_e2e/blob/master/src/assets/looka.jpg)
 
-
+```
 # run e2e tests
 npm run e2e
-
 # look
-!['e2e'](https://github.com/banana618859/vue_test_unit_e2e/blob/master/src/assets/looka.jpg)
+```
+!['e2e'](https://github.com/banana618859/vue_test_unit_e2e/blob/master/src/assets/e2e.jpg)
 
+```
 # run all tests
 npm test
 ```
