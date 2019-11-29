@@ -1,6 +1,6 @@
-# vue_test_demo2
+# vue_test_unit_e2e
 
-> A Vue.js project
+> A Vue.js project with unit and e2e test.
 
 ## Build Setup
 
