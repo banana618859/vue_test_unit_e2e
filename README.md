@@ -1,6 +1,6 @@
-# vue_test_demo2
+# vue_test_unit_e2e
 
-> A Vue.js project
+> A Vue.js project with unit and e2e test.
 
 ## Build Setup
 
@@ -20,9 +20,18 @@ npm run build --report
 # run unit tests
 npm run unit
 
+# look
+```
+!['unit'](https://github.com/banana618859/vue_test_unit_e2e/blob/master/src/assets/looka.jpg)
+
+```
 # run e2e tests
 npm run e2e
+# look
+```
+!['e2e'](https://github.com/banana618859/vue_test_unit_e2e/blob/master/src/assets/e2e.jpg)
 
+```
 # run all tests
 npm test
 ```
