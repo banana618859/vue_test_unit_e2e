@@ -3,13 +3,25 @@
  * @Author: yizheng.yuan
  * @Date: 2019-11-28 18:25:18
  * @LastEditors: yizheng.yuan
- * @LastEditTime: 2019-11-29 11:54:54
+ * @LastEditTime: 2019-12-05 17:09:35
  -->
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
+    <h2>{{text}}</h2>
+    <el-button type="primary" @click="getSonTableData">getSonTableData</el-button>
+    <Son
+      ref="sonPage"
+      :father="myname"
+    ></Son>
+    <span>{{ $t('common.sure')}}</span>
+    <el-button type="primary" @click="changeLaguages()">切换语言</el-button>
+    <el-button @click="getSonProp">getSonProp</el-button>
+    <button @click="changeOne('jerry')">Buy</button>
+    <h2>Essential Links--user:</h2>
+    <div class="user">{{getUser}}</div>
     <input />
+    <button class="changeText" @click="changeText">changeText</button>
     <button class="btn" @click="changeMsg">点我</button>
     <button>搜索</button>
     <div>
@@ -35,9 +47,11 @@
           <el-table-column>
             <template slot-scope="scope">
               <el-button
+                type="danger"
+                class="removeBtn"
                 @click.native.prevent="deleteRow(scope.$index, tableData)"
                 size="small">
-                移除
+                移除{{scope.row.date}}
               </el-button>
             </template>
           </el-table-column>
@@ -52,8 +66,8 @@
         width="30%">
         <span>这是一段信息</span>
         <span slot="footer" class="dialog-footer">
-          <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+          <el-button @click="dialogVisible = false" class="cancelBtn">取 消</el-button>
+          <el-button type="primary" @click="dialogVisible = false" class="sureBtn">确 定</el-button>
         </span>
       </el-dialog>
     </div> 
@@ -62,10 +76,18 @@
 </template>
 
 <script>
+// import 'element-ui/lib/theme-chalk/index.css';
+import {mapActions,mapMutations} from 'vuex'
+import Son from '@/components/Son.vue'
 export default {
   name: 'HelloWorld',
   data () {
     return {
+      myname: 'HelloWorld',
+      hasClose: false,
+      currentLang: 'zh',
+      user: '',
+      text: "text1",
       msg: "vue test",
       msg1: '你好',
       newData: '新数据',
@@ -89,25 +111,66 @@ export default {
         }]
     }
   },
+  components:{
+    Son
+  },
   created() {
       this.msg = 'aftermounted'
   },
+  computed:{
+    getUser(){
+      return this.$store.state.user;
+    }
+  },
   mounted() {
-      this.msg1 = '开课吧'
+      this.msg1 = '开课吧';
   },
   methods: {
+    changeLaguages() {
+      console.log(this.$i18n.locale)
+      let lang = this.currentLang === 'zh' ? 'en' : 'zh'
+      this.$i18n.locale = lang
+    },
+    ...mapActions([
+      'actionClick'
+    ]),
+    ...mapMutations([
+      'changeOne'
+    ]),
+    changeText(){
+      this.text= 'text2';
+    },
+    getSonProp(){
+      let fa = this.$refs.sonPage.sonName;
+      console.log('--rel:',fa);
+      return fa;
+    },
+    getSonTableData(){
+      let data = this.$refs.sonPage.tableData;
+      console.log('--rel-data:',data);
+      return data;
+    },
     changeMsg(){
         if(this.newData == 1){
-            this.msg = '这里还没测试---'
+            this.msg = 'test_if'
         }else{
             this.msg = 'click over1'
         }
     },
     close(){
-      this.$message('测试完毕，关闭页面！')
+      this.$message('测试完毕，关闭页面！');
+      this.hasClose = true;
     },
     deleteRow(index, rows) {
-      this.$confirm('close sure?')
+      this.$confirm(
+        "delete sure?",
+        "提示",
+        {
+          confirmButtonText: "删除",
+          cancelButtonText: "取消1",
+          confirmButtonClass: "removeLine",
+          cancelButtonClass: "cancelRemoveLine"
+        })
       .then(_ => {
           rows.splice(index, 1);
           this.$message({

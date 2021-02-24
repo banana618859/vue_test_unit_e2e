@@ -3,7 +3,7 @@
  * @Author: yizheng.yuan
  * @Date: 2019-11-28 18:25:18
  * @LastEditors: yizheng.yuan
- * @LastEditTime: 2019-11-29 11:52:02
+ * @LastEditTime: 2019-11-29 16:22:25
  */
 const path = require('path');
 
@@ -26,7 +26,6 @@ module.exports = {
   ],
   snapshotSerializers: ['<rootDir>/node_modules/jest-serializer-vue'],
   setupFiles: ['<rootDir>/test/unit/setup'],
-  mapCoverage: true,
   coverageDirectory: '<rootDir>/test/unit/coverage',
   collectCoverageFrom: [
     'src/**/*.{js,vue}',
